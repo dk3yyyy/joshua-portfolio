@@ -22,7 +22,7 @@ The production files are generated in `dist/`.
 - Project claims are based on Joshua's original public repositories.
 - The site avoids unsupported customer, scale, and performance claims.
 - The visual identity is face-free and uses a terminal/workflow motif.
-- Contact: `joshua-n-ai@proton.me`
+- Contact: `josh0victor@outlook.com`
 
 ## Deployment
 

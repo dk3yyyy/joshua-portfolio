@@ -18,10 +18,11 @@ test('portfolio uses verified public links and preferred contact email', () => {
     'github.com/dk3yyyy/local_AI_agent',
     'github.com/dk3yyyy/tic_tac',
     'github.com/dk3yyyy/VirusTotal-Telegram-Bot',
+    'github.com/dk3yyyy/sol-eth-wallet-scanner',
     'linkedin.com/in/joshua-nwachinemere',
     'volyxai.com',
   ]) assert.ok(html.includes(link), `Missing ${link}`);
-  assert.ok(html.includes('joshua-n-ai@proton.me'));
+  assert.ok(html.includes('josh0victor@outlook.com'));
 });
 
 test('external links opened in new tabs are protected', () => {

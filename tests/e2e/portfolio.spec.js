@@ -17,7 +17,7 @@ test('renders without console errors or horizontal overflow', async ({ page }, t
 
   await page.goto('./');
   await expect(page.locator('h1')).toContainText('do the work');
-  await expect(page.locator('#work .project')).toHaveCount(4);
+  await expect(page.locator('#work .project')).toHaveCount(5);
   await expect(page.locator('#contact')).toBeVisible();
 
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
