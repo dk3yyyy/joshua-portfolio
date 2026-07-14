@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">JN monogram</title>
+  <desc id="desc">Joshua Nwachinemere initials in a terminal-style square</desc>
+  <rect width="64" height="64" rx="12" fill="#0b0e10"/>
+  <path d="M14 18h7v20c0 6-3 10-10 10H8v-7h2c3 0 4-1 4-4V18Zm13 0h7l12 18V18h7v30h-7L34 30v18h-7V18Z" fill="#d9ff57"/>
+</svg>
