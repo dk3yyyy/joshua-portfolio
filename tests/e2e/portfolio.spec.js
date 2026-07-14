@@ -55,30 +55,75 @@ test('desktop hero explanation and primary action stay above the fold on laptop 
   }
 });
 
-test('mobile navigation opens, links, and closes', async ({ page }, testInfo) => {
+test('mobile navigation traps keyboard focus and Escape restores the toggle', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile');
   await page.goto('./');
   const toggle = page.locator('.nav-toggle');
-  await toggle.click();
+  const links = page.locator('.site-nav a');
+
+  await toggle.focus();
+  await page.keyboard.press('Enter');
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
   await expect(toggle.locator('.sr-only')).toHaveText('Close navigation');
   await expect(page.locator('.site-nav')).toHaveClass(/is-open/);
   await expect(page.locator('main')).toHaveAttribute('inert', '');
-  await expect(page.locator('.site-nav a').first()).toBeFocused();
+  await expect(links.first()).toBeFocused();
+
+  await page.keyboard.press('Shift+Tab');
+  await expect(toggle).toBeFocused();
+  await page.keyboard.press('Shift+Tab');
+  await expect(links.last()).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(toggle).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(links.first()).toBeFocused();
+
   const openMenuAudit = await new AxeBuilder({ page }).analyze();
   const openMenuBlocking = openMenuAudit.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact));
   expect(openMenuBlocking).toEqual([]);
-  await page.locator('.site-nav a[href="#work"]').click();
+
+  await page.keyboard.press('Escape');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
   await expect(toggle.locator('.sr-only')).toHaveText('Open navigation');
   await expect(page.locator('main')).not.toHaveAttribute('inert', '');
+  await expect(toggle).toBeFocused();
+});
+
+test('mobile navigation link activation closes and focuses its destination', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile');
+  await page.goto('./');
+  const toggle = page.locator('.nav-toggle');
+
+  await toggle.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('.site-nav a').first()).toBeFocused();
+  await page.keyboard.press('Enter');
+
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(page.locator('.site-nav')).not.toHaveClass(/is-open/);
+  await expect(page.locator('body')).not.toHaveClass(/nav-open/);
+  await expect(page.locator('main')).not.toHaveAttribute('inert', '');
   await expect(page).toHaveURL(/#work$/);
+  await expect(page.locator('#work')).toBeFocused();
+});
+
+test('desktop navigation keyboard order is unchanged', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === 'mobile');
+  await page.goto('./');
+
+  await page.locator('.brand').focus();
+  await page.keyboard.press('Tab');
+
+  await expect(page.locator('.site-nav a').first()).toBeFocused();
+  await expect(page.locator('.nav-toggle')).toBeHidden();
+  await expect(page.locator('.site-nav')).toBeVisible();
+  await expect(page.locator('main')).not.toHaveAttribute('inert', '');
 });
 
 test('primary content stays visible without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
-  await page.goto('http://127.0.0.1:4173/joshua-portfolio/');
+  await page.goto(test.info().project.use.baseURL);
   await expect(page.locator('.hero-copy')).toHaveCSS('opacity', '1');
   await expect(page.locator('#work .project').first()).toHaveCSS('opacity', '1');
   await context.close();

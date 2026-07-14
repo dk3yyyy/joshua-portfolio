@@ -1,15 +1,18 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const port = process.env.PORT || '4173';
+const baseURL = `http://127.0.0.1:${port}/joshua-portfolio/`;
+
 export default defineConfig({
   testDir: './tests/e2e',
   timeout: 30_000,
   use: {
-    baseURL: 'http://127.0.0.1:4173/joshua-portfolio/',
+    baseURL,
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: 'npm run preview -- --port 4173',
-    url: 'http://127.0.0.1:4173/joshua-portfolio/',
+    command: `npm run preview -- --port ${port} --strictPort`,
+    url: baseURL,
     reuseExistingServer: false,
   },
   projects: [
