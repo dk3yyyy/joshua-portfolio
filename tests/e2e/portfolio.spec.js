@@ -30,6 +30,31 @@ test('renders without console errors or horizontal overflow', async ({ page }, t
   });
 });
 
+test('desktop hero explanation and primary action stay above the fold on laptop screens', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop');
+
+  for (const viewport of [
+    { width: 1366, height: 768 },
+    { width: 1280, height: 720 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto('./');
+
+    const explanation = page.locator('.hero-lede');
+    const primaryAction = page.locator('.hero-actions .button-primary');
+    await expect(page.locator('.hero-copy')).toHaveCSS('opacity', '1');
+    await expect(explanation).toBeVisible();
+    await expect(primaryAction).toBeVisible();
+
+    const explanationBox = await explanation.boundingBox();
+    const primaryActionBox = await primaryAction.boundingBox();
+    expect(explanationBox.y).toBeGreaterThanOrEqual(0);
+    expect(explanationBox.y + explanationBox.height).toBeLessThanOrEqual(viewport.height);
+    expect(primaryActionBox.y).toBeGreaterThanOrEqual(0);
+    expect(primaryActionBox.y + primaryActionBox.height).toBeLessThanOrEqual(viewport.height);
+  }
+});
+
 test('mobile navigation opens, links, and closes', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile');
   await page.goto('./');
@@ -69,6 +94,7 @@ test('all internal section links resolve to existing targets', async ({ page }) 
 
 test('has no serious or critical automated accessibility violations', async ({ page }) => {
   await page.goto('./');
+  await expect(page.locator('.hero-copy')).toHaveCSS('opacity', '1');
   const results = await new AxeBuilder({ page }).analyze();
   const blocking = results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact));
   expect(blocking, blocking.map((violation) => `${violation.id}: ${violation.help}`).join('\n')).toEqual([]);
