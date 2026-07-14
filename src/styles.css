@@ -46,7 +46,10 @@ figure { margin: 0; }
 .brand-copy { display: flex; flex-direction: column; font-size: 13px; font-weight: 700; line-height: 1.2; }
 .brand-copy small { margin-top: 4px; color: var(--dim); font-family: var(--mono); font-size: 10px; font-weight: 400; text-transform: uppercase; letter-spacing: .11em; }
 .site-nav { display: flex; align-items: center; gap: 34px; font-size: 13px; font-weight: 600; }
-.site-nav > a { color: var(--muted); transition: color .2s ease; }
+.site-nav > a { position: relative; color: var(--muted); transition: color .2s ease; }
+.site-nav > a::after { content: ''; position: absolute; right: 0; bottom: -8px; left: 0; height: 2px; background: var(--acid); transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
+.site-nav > a[aria-current="location"] { color: var(--ink); }
+.site-nav > a[aria-current="location"]::after { transform: scaleX(1); }
 .site-nav > a:hover { color: var(--ink); }
 .site-nav .nav-cta { min-height: 42px; padding: 9px 15px; display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--line-bright); border-radius: 5px; color: var(--ink); }
 .site-nav .nav-cta:hover { border-color: var(--acid); color: var(--acid); }
@@ -225,6 +228,7 @@ h3 { font-size: clamp(1.75rem, 3vw, 2.55rem); font-weight: 600; }
   .site-nav { position: fixed; inset: 0; padding: 108px 24px 36px; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 0; background: rgba(9,11,13,.98); visibility: hidden; opacity: 0; transform: translateY(-12px); transition: opacity .2s ease, transform .2s ease, visibility .2s; }
   .site-nav.is-open { visibility: visible; opacity: 1; transform: translateY(0); }
   .site-nav > a { padding: 20px 2px; border-bottom: 1px solid var(--line); font-size: 22px; }
+  .site-nav > a::after { right: auto; bottom: -1px; width: 42px; }
   .site-nav .nav-cta { margin-top: 24px; justify-content: space-between; padding-inline: 16px; border: 1px solid var(--line-bright); font-size: 15px; }
   .nav-toggle[aria-expanded="true"] span:first-child { transform: translateY(3px) rotate(45deg); }.nav-toggle[aria-expanded="true"] span:nth-child(2) { transform: translateY(-3px) rotate(-45deg); }
   .hero { padding: 56px 0 76px; gap: 48px; }

@@ -120,6 +120,30 @@ test('desktop navigation keyboard order is unchanged', async ({ page }, testInfo
   await expect(page.locator('main')).not.toHaveAttribute('inert', '');
 });
 
+test('sticky navigation identifies the active section without layout shift', async ({ page }) => {
+  await page.goto('./');
+  const activeLinks = page.locator('.site-nav a[aria-current="location"]');
+  await expect(activeLinks).toHaveCount(0);
+
+  const headerHeight = await page.locator('.site-header').evaluate((header) => header.getBoundingClientRect().height);
+  for (const section of ['work', 'approach', 'about', 'contact']) {
+    const link = page.locator(`.site-nav a[href="#${section}"]`);
+    await page.locator(`#${section}`).evaluate((element) => element.scrollIntoView({ behavior: 'instant', block: 'start' }));
+    await expect(link).toHaveAttribute('aria-current', 'location');
+    await expect(activeLinks).toHaveCount(1);
+    await expect(link).toHaveCSS('position', 'relative');
+    expect(await link.evaluate((element) => getComputedStyle(element, '::after').position)).toBe('absolute');
+    const sectionTop = await page.locator(`#${section}`).evaluate((element) => element.getBoundingClientRect().top);
+    expect(sectionTop).toBeGreaterThanOrEqual(headerHeight - 1);
+  }
+});
+
+test('deep links receive the correct initial active state', async ({ page }) => {
+  await page.goto('./#about');
+  await expect(page.locator('.site-nav a[href="#about"]')).toHaveAttribute('aria-current', 'location');
+  await expect(page.locator('.site-nav a[aria-current="location"]')).toHaveCount(1);
+});
+
 test('primary content stays visible without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();

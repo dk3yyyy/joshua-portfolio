@@ -10,6 +10,9 @@ const signalBar = document.querySelector('.signal-bar');
 const progress = document.querySelector('.scroll-progress span');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let navFocusTimer;
+const sectionLinks = [...(nav?.querySelectorAll('a[href^="#"]') ?? [])]
+  .map((link) => ({ link, section: document.querySelector(link.hash) }))
+  .filter(({ section }) => section);
 
 const setPageInert = (inert) => {
   if (main) main.inert = inert;
@@ -86,15 +89,37 @@ window.addEventListener('keydown', (event) => {
   }
 });
 
+const updateActiveSection = () => {
+  if (!sectionLinks.length) return;
+
+  const activationLine = (header?.getBoundingClientRect().height ?? 0) + 32;
+  const atPageEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+  let activeLink = null;
+
+  for (const { link, section } of sectionLinks) {
+    if (section.getBoundingClientRect().top <= activationLine) activeLink = link;
+  }
+  if (atPageEnd) activeLink = sectionLinks.at(-1).link;
+
+  sectionLinks.forEach(({ link }) => {
+    if (link === activeLink) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
+};
+
 const updateChrome = () => {
   const scrollY = window.scrollY;
   header?.classList.toggle('is-scrolled', scrollY > 24);
   const max = document.documentElement.scrollHeight - window.innerHeight;
   if (progress) progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+  updateActiveSection();
 };
 
 updateChrome();
 window.addEventListener('scroll', updateChrome, { passive: true });
+window.addEventListener('resize', updateActiveSection, { passive: true });
+window.addEventListener('hashchange', () => window.requestAnimationFrame(updateActiveSection));
+window.addEventListener('load', () => window.requestAnimationFrame(updateActiveSection));
 
 const updateSignalFocusability = () => {
   if (!signalBar) return;
