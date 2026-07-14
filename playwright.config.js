@@ -4,13 +4,13 @@ export default defineConfig({
   testDir: './tests/e2e',
   timeout: 30_000,
   use: {
-    baseURL: 'http://127.0.0.1:4173',
+    baseURL: 'http://127.0.0.1:4173/joshua-portfolio/',
     trace: 'retain-on-failure',
   },
   webServer: {
     command: 'npm run preview -- --port 4173',
-    url: 'http://127.0.0.1:4173',
-    reuseExistingServer: true,
+    url: 'http://127.0.0.1:4173/joshua-portfolio/',
+    reuseExistingServer: false,
   },
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 1000 } } },
