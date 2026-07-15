@@ -153,6 +153,14 @@ test('primary content stays visible without JavaScript', async ({ browser }) => 
   await context.close();
 });
 
+test('published CV link resolves to a PDF', async ({ page, request }) => {
+  await page.goto('./');
+  const href = await page.locator('a', { hasText: 'View CV' }).first().getAttribute('href');
+  const response = await request.get(new URL(href, page.url()).toString());
+  expect(response.status()).toBe(200);
+  expect(response.headers()['content-type']).toContain('application/pdf');
+});
+
 test('all internal section links resolve to existing targets', async ({ page }) => {
   await page.goto('./');
   const hashes = await page.locator('a[href^="#"]').evaluateAll((links) => links.map((link) => link.getAttribute('href')));

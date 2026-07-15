@@ -9,7 +9,6 @@ const footer = document.querySelector('.site-footer');
 const signalBar = document.querySelector('.signal-bar');
 const progress = document.querySelector('.scroll-progress span');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-let navFocusTimer;
 const sectionLinks = [...(nav?.querySelectorAll('a[href^="#"]') ?? [])]
   .map((link) => ({ link, section: document.querySelector(link.hash) }))
   .filter(({ section }) => section);
@@ -20,7 +19,6 @@ const setPageInert = (inert) => {
 };
 
 const closeNav = ({ restoreFocus = false } = {}) => {
-  window.clearTimeout(navFocusTimer);
   navToggle?.setAttribute('aria-expanded', 'false');
   if (navLabel) navLabel.textContent = 'Open navigation';
   nav?.classList.remove('is-open');
@@ -35,7 +33,8 @@ const openNav = () => {
   nav?.classList.add('is-open');
   document.body.classList.add('nav-open');
   setPageInert(true);
-  navFocusTimer = window.setTimeout(() => nav?.querySelector('a')?.focus({ preventScroll: true }), 50);
+  nav?.getBoundingClientRect();
+  nav?.querySelector('a')?.focus({ preventScroll: true });
 };
 
 const focusLinkTarget = (link) => {
@@ -54,8 +53,16 @@ const focusLinkTarget = (link) => {
 };
 
 navToggle?.addEventListener('click', () => {
-  const open = navToggle.getAttribute('aria-expanded') === 'true';
-  if (open) closeNav({ restoreFocus: true });
+  const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+  if (expanded) closeNav({ restoreFocus: true });
+  else openNav();
+});
+
+navToggle?.addEventListener('keydown', (event) => {
+  if (event.key !== 'Enter' && event.key !== ' ') return;
+  event.preventDefault();
+  const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+  if (expanded) closeNav({ restoreFocus: true });
   else openNav();
 });
 

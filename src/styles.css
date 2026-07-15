@@ -225,8 +225,8 @@ h3 { font-size: clamp(1.75rem, 3vw, 2.55rem); font-weight: 600; }
   .brand-copy { display: flex; font-size: 11px; }
   .brand-copy small { display: none; }
   .nav-toggle { display: block; position: relative; z-index: 2; }
-  .site-nav { position: fixed; inset: 0; padding: 108px 24px 36px; display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 0; background: rgba(9,11,13,.98); visibility: hidden; opacity: 0; transform: translateY(-12px); transition: opacity .2s ease, transform .2s ease, visibility .2s; }
-  .site-nav.is-open { visibility: visible; opacity: 1; transform: translateY(0); }
+  .site-nav { position: fixed; inset: 0; padding: 108px 24px 36px; display: none; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 0; background: rgba(9,11,13,.98); }
+  .site-nav.is-open { display: flex; }
   .site-nav > a { padding: 20px 2px; border-bottom: 1px solid var(--line); font-size: 22px; }
   .site-nav > a::after { right: auto; bottom: -1px; width: 42px; }
   .site-nav .nav-cta { margin-top: 24px; justify-content: space-between; padding-inline: 16px; border: 1px solid var(--line-bright); font-size: 15px; }

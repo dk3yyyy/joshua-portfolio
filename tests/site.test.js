@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const css = await readFile(new URL('../src/styles.css', import.meta.url), 'utf8');
@@ -16,7 +16,7 @@ test('portfolio uses verified public links and preferred contact email', () => {
   for (const link of [
     'github.com/dk3yyyy/football_predictor',
     'github.com/dk3yyyy/local_AI_agent',
-    'github.com/dk3yyyy/tic_tac',
+    'github.com/dk3yyyy/Noughtline',
     'github.com/dk3yyyy/VirusTotal-Telegram-Bot',
     'github.com/dk3yyyy/sol-eth-wallet-scanner',
     'linkedin.com/in/joshua-nwachinemere',
@@ -29,6 +29,14 @@ test('external links opened in new tabs are protected', () => {
   const externalTargets = [...html.matchAll(/<a[^>]*target="_blank"[^>]*>/g)].map((match) => match[0]);
   assert.ok(externalTargets.length >= 6);
   for (const anchor of externalTargets) assert.match(anchor, /rel="noreferrer"/);
+});
+
+test('recruiter CV artifacts exist and the PDF is linked', async () => {
+  const pdf = await stat(new URL('../public/Joshua_Nwachinemere_CV.pdf', import.meta.url));
+  const docx = await stat(new URL('../public/Joshua_Nwachinemere_CV.docx', import.meta.url));
+  assert.ok(pdf.size > 1_000);
+  assert.ok(docx.size > 1_000);
+  assert.match(html, /href="%BASE_URL%Joshua_Nwachinemere_CV\.pdf"/);
 });
 
 test('responsive and reduced-motion styles are present', () => {
