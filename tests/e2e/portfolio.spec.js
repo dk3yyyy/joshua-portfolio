@@ -163,7 +163,7 @@ test('primary content stays visible without JavaScript', async ({ browser }) => 
 });
 
 test('reveal content fails open when the JavaScript bundle cannot load', async ({ page }) => {
-  await page.route(/\/assets\/.*\.js$/, (route) => route.abort());
+  await page.route('**/*.js', (route) => route.abort());
   await page.goto('./');
   await expect(page.locator('.hero-copy')).toHaveCSS('opacity', '1');
   await expect(page.locator('#work .project').first()).toHaveCSS('opacity', '1');
@@ -173,8 +173,11 @@ test('mobile project links meet touch-target guidance and page length stays focu
   test.skip(testInfo.project.name !== 'mobile');
   await page.goto('./');
 
-  for (const link of await page.locator('.project-footer a').all()) {
+  const links = await page.locator('.project-footer a').all();
+  expect(links.length).toBeGreaterThan(0);
+  for (const link of links) {
     const box = await link.boundingBox();
+    expect(box).not.toBeNull();
     expect(box.height).toBeGreaterThanOrEqual(44);
   }
 
