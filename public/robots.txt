@@ -1,2 +1,4 @@
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://dk3yyyy.github.io/joshua-portfolio/sitemap.xml

@@ -36,6 +36,9 @@ test('desktop hero explanation and primary action stay above the fold on laptop 
   for (const viewport of [
     { width: 1366, height: 768 },
     { width: 1280, height: 720 },
+    { width: 1366, height: 800 },
+    { width: 1366, height: 801 },
+    { width: 1440, height: 900 },
   ]) {
     await page.setViewportSize(viewport);
     await page.goto('./');
@@ -145,12 +148,42 @@ test('deep links receive the correct initial active state', async ({ page }) => 
 });
 
 test('primary content stays visible without JavaScript', async ({ browser }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false });
+  const context = await browser.newContext({
+    javaScriptEnabled: false,
+    viewport: { width: 412, height: 915 },
+  });
   const page = await context.newPage();
   await page.goto(test.info().project.use.baseURL);
   await expect(page.locator('.hero-copy')).toHaveCSS('opacity', '1');
   await expect(page.locator('#work .project').first()).toHaveCSS('opacity', '1');
+  await expect(page.locator('.nav-toggle')).toBeHidden();
+  await expect(page.locator('.site-nav')).toBeVisible();
+  await expect(page.locator('.site-nav a[href="#work"]')).toBeVisible();
   await context.close();
+});
+
+test('reveal content fails open when the JavaScript bundle cannot load', async ({ page }) => {
+  await page.route('**/*.js', (route) => route.abort());
+  await page.goto('./');
+  await expect(page.locator('.hero-copy')).toHaveCSS('opacity', '1');
+  await expect(page.locator('#work .project').first()).toHaveCSS('opacity', '1');
+});
+
+test('mobile project links meet touch-target guidance and page length stays focused', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile');
+  await page.goto('./');
+
+  const links = await page.locator('.project-footer a').all();
+  expect(links.length).toBeGreaterThan(0);
+  for (const link of links) {
+    const box = await link.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box.height).toBeGreaterThanOrEqual(44);
+  }
+
+  const metaSize = await page.locator('.project-meta').first().evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
+  expect(metaSize).toBeGreaterThanOrEqual(12);
+  expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(8_000);
 });
 
 test('published CV link resolves to a PDF', async ({ page, request }) => {

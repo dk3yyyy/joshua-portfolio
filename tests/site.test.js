@@ -4,12 +4,41 @@ import { readFile, stat } from 'node:fs/promises';
 
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 const css = await readFile(new URL('../src/styles.css', import.meta.url), 'utf8');
+const robots = await readFile(new URL('../public/robots.txt', import.meta.url), 'utf8');
+const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8').catch(() => '');
 
 test('page has one h1 and the expected primary sections', () => {
   assert.equal((html.match(/<h1[\s>]/g) || []).length, 1);
   for (const id of ['work', 'approach', 'about', 'contact']) {
     assert.match(html, new RegExp(`id="${id}"`));
   }
+});
+
+test('production metadata permits indexing and exposes crawl discovery', () => {
+  assert.doesNotMatch(html, /noindex|nofollow/i);
+  assert.match(html, /<link rel="canonical" href="https:\/\/dk3yyyy\.github\.io\/joshua-portfolio\/"/);
+  assert.match(robots, /^User-agent: \*$/m);
+  assert.match(robots, /^Allow: \/$/m);
+  assert.doesNotMatch(robots, /^Disallow: \/$/m);
+  assert.match(robots, /^Sitemap: https:\/\/dk3yyyy\.github\.io\/joshua-portfolio\/sitemap\.xml$/m);
+  assert.match(sitemap, /<loc>https:\/\/dk3yyyy\.github\.io\/joshua-portfolio\/<\/loc>/);
+});
+
+test('page publishes truthful ProfilePage and Person structured data', () => {
+  const match = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  assert.ok(match, 'Missing JSON-LD structured data');
+  const data = JSON.parse(match[1]);
+  assert.equal(data['@context'], 'https://schema.org');
+  const graph = data['@graph'];
+  const profile = graph.find((entry) => entry['@type'] === 'ProfilePage');
+  const person = graph.find((entry) => entry['@type'] === 'Person');
+  assert.equal(profile.mainEntity['@id'], person['@id']);
+  assert.equal(person.name, 'Joshua Nwachinemere');
+  assert.equal(person.jobTitle, 'AI Engineer');
+  assert.deepEqual(person.sameAs, [
+    'https://github.com/dk3yyyy',
+    'https://www.linkedin.com/in/joshua-nwachinemere/',
+  ]);
 });
 
 test('portfolio uses verified public links and preferred contact email', () => {

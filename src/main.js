@@ -163,3 +163,4 @@ if (reduceMotion || !('IntersectionObserver' in window)) {
 
 const year = new Date().getFullYear();
 document.querySelector('.site-footer p')?.setAttribute('title', `Portfolio updated ${year}`);
+window.clearTimeout(window.__revealFallback);
