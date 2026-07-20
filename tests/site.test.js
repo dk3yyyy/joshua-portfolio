@@ -47,7 +47,7 @@ test('portfolio uses verified public links and preferred contact email', () => {
     'github.com/dk3yyyy/local_AI_agent',
     'github.com/dk3yyyy/Noughtline',
     'github.com/dk3yyyy/VirusTotal-Telegram-Bot',
-    'github.com/dk3yyyy/sol-eth-wallet-scanner',
+    'github.com/dk3yyyy/sol-eth-wallet-analyzer',
     'linkedin.com/in/joshua-nwachinemere',
     'volyxai.com',
   ]) assert.ok(html.includes(link), `Missing ${link}`);
