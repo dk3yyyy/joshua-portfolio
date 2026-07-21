@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#090b0d" />
     <meta name="description" content="Portfolio of Joshua Nwachinemere, an AI engineer building controlled agents, ML systems, backend services, and automations." />
-    <meta name="robots" content="noindex, nofollow" />
     <link rel="canonical" href="https://dk3yyyy.github.io/joshua-portfolio/" />
     <meta property="og:title" content="Joshua Nwachinemere · AI Engineer" />
     <meta property="og:description" content="AI systems that move real work forward while keeping people in control." />
@@ -21,10 +20,45 @@
     <meta name="twitter:description" content="AI systems that move real work forward while keeping people in control." />
     <meta name="twitter:image" content="https://dk3yyyy.github.io/joshua-portfolio/og-card.png" />
     <link rel="icon" href="/joshua-portfolio/favicon.svg" type="image/svg+xml" />
-    <script>document.documentElement.classList.add('js');</script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "ProfilePage",
+            "@id": "https://dk3yyyy.github.io/joshua-portfolio/#profilepage",
+            "url": "https://dk3yyyy.github.io/joshua-portfolio/",
+            "name": "Joshua Nwachinemere · AI Engineer",
+            "mainEntity": {
+              "@id": "https://dk3yyyy.github.io/joshua-portfolio/#person"
+            }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://dk3yyyy.github.io/joshua-portfolio/#person",
+            "name": "Joshua Nwachinemere",
+            "url": "https://dk3yyyy.github.io/joshua-portfolio/",
+            "jobTitle": "AI Engineer",
+            "sameAs": [
+              "https://github.com/dk3yyyy",
+              "https://www.linkedin.com/in/joshua-nwachinemere/"
+            ],
+            "worksFor": {
+              "@type": "Organization",
+              "name": "VolyxAI",
+              "url": "https://volyxai.com"
+            }
+          }
+        ]
+      }
+    </script>
+    <script>
+      document.documentElement.classList.add('js');
+      window.__revealFallback = window.setTimeout(() => document.documentElement.classList.remove('js'), 1500);
+    </script>
     <title>Joshua Nwachinemere · AI Engineer</title>
-    <script type="module" crossorigin src="/joshua-portfolio/assets/index-NdUkcESX.js"></script>
-    <link rel="stylesheet" crossorigin href="/joshua-portfolio/assets/index-C1jWW8hO.css">
+    <script type="module" crossorigin src="/joshua-portfolio/assets/index-BNfDmmWD.js"></script>
+    <link rel="stylesheet" crossorigin href="/joshua-portfolio/assets/index-CIbZlieZ.css">
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -85,24 +119,22 @@
 
       <section class="work section" id="work" aria-labelledby="work-title">
         <div class="section-heading" data-reveal>
-          <div><p class="eyebrow">Selected work</p><h2 id="work-title">Five systems. Different engineering problems.</h2></div>
-          <p>ML experimentation, local retrieval, real-time state, security scanning, and multi-chain API aggregation. Each project is labelled at the maturity its evidence supports.</p>
+          <div><p class="eyebrow">Selected work</p><h2 id="work-title">Four working systems. One archived experiment.</h2></div>
+          <p>Real-time state, local retrieval, security scanning, and multi-chain API aggregation lead the portfolio. The forecasting experiment remains visible for its evaluation lessons, not as a product claim.</p>
         </div>
 
         <div class="projects">
           <article class="project project-featured" data-reveal>
-            <div class="project-visual visual-model" aria-hidden="true">
-              <div class="chart-grid"></div>
-              <div class="chart-label label-a">train</div><div class="chart-label label-b">calibrate</div><div class="chart-label label-c">test</div>
-              <svg viewBox="0 0 640 280" role="presentation"><path class="chart-shadow" d="M0,225 C70,205 92,142 165,160 C228,176 250,88 322,112 C395,138 402,50 482,79 C541,101 570,41 640,27"/><path class="chart-line" d="M0,225 C70,205 92,142 165,160 C228,176 250,88 322,112 C395,138 402,50 482,79 C541,101 570,41 640,27"/><circle cx="165" cy="160" r="5"/><circle cx="322" cy="112" r="5"/><circle cx="482" cy="79" r="5"/></svg>
-              <div class="model-chip">XGBoost · Poisson</div>
+            <div class="project-visual visual-game" aria-hidden="true">
+              <div class="game-status"><span>ROOM 8XK2</span><span class="live-dot">live</span></div>
+              <div class="game-board"><span>X</span><span></span><span>O</span><span></span><span>X</span><span></span><span>O</span><span></span><span>X</span></div>
+              <div class="game-ledger"><span>server-authoritative</span><span>ledger: append-only</span></div>
             </div>
             <div class="project-content">
-              <div class="project-meta"><span>01 / ML experiment</span><span>Python</span></div>
-              <h3>Football Predictor</h3>
-              <p>An experimental prediction pipeline with data scrapers, feature engineering, XGBoost outcome and Poisson goal models, a FastAPI service, and a Streamlit dashboard.</p>
-              <ul class="project-notes"><li>Uses a chronological 70 / 15 / 15 split</li><li>Evaluation design is being tightened; no performance claim</li></ul>
-              <div class="project-footer"><span class="tags">XGBoost · scikit-learn · FastAPI · Streamlit</span><a href="https://github.com/dk3yyyy/football_predictor" target="_blank" rel="noreferrer">View source <span aria-hidden="true">↗</span></a></div>
+              <div class="project-meta"><span>01 / Real-time systems</span><span>JavaScript</span></div>
+              <h3>Noughtline</h3>
+              <p>A React and Express multiplayer game with signed guest sessions, server-validated moves, reconnect handling, an append-only transaction ledger, and one-time crediting for verified Paystack references.</p>
+              <div class="project-footer"><span class="tags">React · Socket.IO · SQLite</span><span class="project-links"><a href="https://noughtline.onrender.com" target="_blank" rel="noreferrer">Live <span aria-hidden="true">↗</span></a><a href="https://github.com/dk3yyyy/Noughtline" target="_blank" rel="noreferrer">Source <span aria-hidden="true">↗</span></a></span></div>
             </div>
           </article>
 
@@ -121,27 +153,13 @@
           </article>
 
           <article class="project" data-reveal>
-            <div class="project-visual visual-game" aria-hidden="true">
-              <div class="game-status"><span>ROOM 8XK2</span><span class="live-dot">live</span></div>
-              <div class="game-board"><span>X</span><span></span><span>O</span><span></span><span>X</span><span></span><span>O</span><span></span><span>X</span></div>
-              <div class="game-ledger"><span>server-authoritative</span><span>ledger: append-only</span></div>
-            </div>
-            <div class="project-content">
-              <div class="project-meta"><span>03 / Real-time systems</span><span>JavaScript</span></div>
-              <h3>Noughtline</h3>
-              <p>A React and Express multiplayer game with signed guest sessions, server-validated moves, reconnect handling, an append-only transaction ledger, and one-time crediting for verified Paystack references.</p>
-              <div class="project-footer"><span class="tags">React · Socket.IO · SQLite</span><span class="project-links"><a href="https://noughtline.onrender.com" target="_blank" rel="noreferrer">Live <span aria-hidden="true">↗</span></a><a href="https://github.com/dk3yyyy/Noughtline" target="_blank" rel="noreferrer">Source <span aria-hidden="true">↗</span></a></span></div>
-            </div>
-          </article>
-
-          <article class="project" data-reveal>
             <div class="project-visual visual-security" aria-hidden="true">
               <div class="scan-head"><span>sha256</span><code>4c6f…91e2</code></div>
               <div class="scan-ring"><span>VT</span><small>multi-engine</small></div>
               <div class="scan-result"><span class="safe">known clean</span><span class="warn">flagged items</span></div>
             </div>
             <div class="project-content">
-              <div class="project-meta"><span>04 / API integration</span><span>Python</span></div>
+              <div class="project-meta"><span>03 / API integration</span><span>Python</span></div>
               <h3>VirusTotal Telegram Bot</h3>
               <p>An async Telegram bot for scanning files, URLs, and hashes through VirusTotal v3. It hashes locally before upload, follows the large-file upload flow, backs off on rate limits, and caches reports for interactive details.</p>
               <div class="project-footer"><span class="tags">Pyrogram · aiohttp · VirusTotal API</span><a href="https://github.com/dk3yyyy/VirusTotal-Telegram-Bot" target="_blank" rel="noreferrer">View source <span aria-hidden="true">↗</span></a></div>
@@ -158,10 +176,26 @@
               <div class="chain-output"><span>holdings</span><span>prices</span><span>pages</span></div>
             </div>
             <div class="project-content">
-              <div class="project-meta"><span>05 / API aggregation prototype</span><span>Python</span></div>
+              <div class="project-meta"><span>04 / API aggregation prototype</span><span>Python</span></div>
               <h3>Solana &amp; Ethereum Wallet Scanner</h3>
               <p>An async Telegram bot that validates Solana and Ethereum addresses, combines Solana RPC, Etherscan, CoinGecko, and DexScreener data, caches requests for five minutes, and paginates Solana token holdings in chat.</p>
               <div class="project-footer"><span class="tags">aiohttp · Telegram Bot API · Web3 data</span><a href="https://github.com/dk3yyyy/sol-eth-wallet-scanner" target="_blank" rel="noreferrer">View source <span aria-hidden="true">↗</span></a></div>
+            </div>
+          </article>
+
+          <article class="project project-archive" data-reveal>
+            <div class="project-visual visual-model" aria-hidden="true">
+              <div class="chart-grid"></div>
+              <div class="chart-label label-a">train</div><div class="chart-label label-b">calibrate</div><div class="chart-label label-c">test</div>
+              <svg viewBox="0 0 640 280" role="presentation"><path class="chart-shadow" d="M0,225 C70,205 92,142 165,160 C228,176 250,88 322,112 C395,138 402,50 482,79 C541,101 570,41 640,27"/><path class="chart-line" d="M0,225 C70,205 92,142 165,160 C228,176 250,88 322,112 C395,138 402,50 482,79 C541,101 570,41 640,27"/><circle cx="165" cy="160" r="5"/><circle cx="322" cy="112" r="5"/><circle cx="482" cy="79" r="5"/></svg>
+              <div class="model-chip">XGBoost · Poisson</div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta"><span>05 / Archived ML experiment</span><span>Python</span></div>
+              <h3>Football Predictor</h3>
+              <p>An archived forecasting experiment combining calibrated XGBoost and Poisson score probabilities. Its real-data evaluation demonstrated signal over naive baselines but not practical value over bookmaker probabilities.</p>
+              <ul class="project-notes"><li>Rolling-origin evaluation across 1,140 Premier League test matches</li><li>53.77% accuracy versus a 56.70% bookmaker benchmark; not a betting product</li></ul>
+              <div class="project-footer"><span class="tags">XGBoost · scikit-learn · FastAPI · Streamlit</span><a href="https://github.com/dk3yyyy/football_predictor/tree/repair/football-predictor-hardening" target="_blank" rel="noreferrer">View archived branch <span aria-hidden="true">↗</span></a></div>
             </div>
           </article>
         </div>
