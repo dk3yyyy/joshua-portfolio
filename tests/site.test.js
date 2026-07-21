@@ -60,6 +60,20 @@ test('external links opened in new tabs are protected', () => {
   for (const anchor of externalTargets) assert.match(anchor, /rel="noreferrer"/);
 });
 
+test('strongest working project leads and forecasting experiment is archived last', () => {
+  const titles = [...html.matchAll(/<h3>(.*?)<\/h3>/g)].map((match) => match[1]);
+  assert.deepEqual(titles.slice(0, 5), [
+    'Noughtline',
+    'Local Review RAG',
+    'VirusTotal Telegram Bot',
+    'Solana &amp; Ethereum Wallet Scanner',
+    'Football Predictor',
+  ]);
+  assert.match(html, /project project-archive/);
+  assert.match(html, /53\.77% accuracy versus a 56\.70% bookmaker benchmark/);
+  assert.match(html, /football_predictor\/tree\/repair\/football-predictor-hardening/);
+});
+
 test('recruiter CV artifacts exist and the PDF is linked', async () => {
   const pdf = await stat(new URL('../public/Joshua_Nwachinemere_CV.pdf', import.meta.url));
   const docx = await stat(new URL('../public/Joshua_Nwachinemere_CV.docx', import.meta.url));
@@ -75,6 +89,7 @@ test('responsive and reduced-motion styles are present', () => {
 });
 
 test('copy avoids unsupported performance metrics', () => {
-  assert.doesNotMatch(html, /\b\d{1,3}%\b/);
+  const withoutVerifiedExperimentMetrics = html.replace('53.77%', '').replace('56.70%', '');
+  assert.doesNotMatch(withoutVerifiedExperimentMetrics, /\b\d{1,3}(?:\.\d+)?%\b/);
   assert.doesNotMatch(html, /customers served|production scale|industry-leading/i);
 });
