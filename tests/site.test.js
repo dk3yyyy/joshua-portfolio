@@ -44,7 +44,7 @@ test('page publishes truthful ProfilePage and Person structured data', () => {
 test('portfolio uses verified public links and preferred contact email', () => {
   for (const link of [
     'github.com/dk3yyyy/football_predictor',
-    'github.com/dk3yyyy/local_AI_agent',
+    'github.com/dk3yyyy/volyx-lens',
     'github.com/dk3yyyy/Noughtline',
     'github.com/dk3yyyy/VirusTotal-Telegram-Bot',
     'github.com/dk3yyyy/sol-eth-wallet-analyzer',
@@ -63,8 +63,8 @@ test('external links opened in new tabs are protected', () => {
 test('strongest working project leads and forecasting experiment is archived last', () => {
   const titles = [...html.matchAll(/<h3>(.*?)<\/h3>/g)].map((match) => match[1]);
   assert.deepEqual(titles.slice(0, 5), [
+    'Volyx Lens',
     'Noughtline',
-    'Local Review RAG',
     'VirusTotal Telegram Bot',
     'Solana &amp; Ethereum Wallet Analyzer',
     'Football Predictor',

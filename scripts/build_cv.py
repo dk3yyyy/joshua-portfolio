@@ -12,7 +12,7 @@ from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
-from reportlab.platypus import Flowable, ListFlowable, ListItem, PageBreak, Paragraph, SimpleDocTemplate
+from reportlab.platypus import Flowable, KeepTogether, PageBreak, Paragraph, SimpleDocTemplate
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public"
@@ -24,16 +24,16 @@ NAME = "JOSHUA NWACHINEMERE"
 HEADLINE = "AI Engineer | Applied AI, ML Systems, Automation"
 EMAIL = "josh0victor@outlook.com"
 PHONE = "+234 913 148 0096"
+LOCATION = "Lagos, Nigeria | Open to UK relocation"
 GITHUB_URL = "https://github.com/dk3yyyy"
 LINKEDIN_URL = "https://www.linkedin.com/in/joshua-nwachinemere"
 PORTFOLIO_URL = "https://dk3yyyy.github.io/joshua-portfolio"
 URL_PATTERN = re.compile(r"https://[^\s|]+")
 
 SUMMARY = (
-    "AI Engineer and VolyxAI founder building practical AI, automation, and backend systems with Python. "
-    "Work includes machine-learning pipelines, local retrieval, event-driven workflows, real-time services, "
-    "and API integrations. Focused on systems that validate model output, preserve execution context, and "
-    "keep people responsible for consequential actions."
+    "AI Engineer and VolyxAI founder building applied AI, backend services, and automation systems with Python, "
+    "JavaScript, and TypeScript. Experience includes a multimodal macOS assistant, retrieval workflows, "
+    "real-time applications, ML evaluation, API integrations, and human-in-the-loop automation."
 )
 
 EXPERIENCE = [
@@ -42,45 +42,45 @@ EXPERIENCE = [
         "org": "VolyxAI",
         "date": "Nov 2025 - Present",
         "bullets": [
-            "Designing early-stage operations workflows that connect conversation intake to validation, approval, and context-rich handoff steps.",
-            "Built n8n workflow prototypes that connect language models with calendars, email, webhooks, and structured business rules in controlled test environments.",
-            "Prototyped a voice-led scheduling flow using Vapi, ElevenLabs, n8n, Google Calendar, and email confirmation integrations.",
-            "Defined input validation, retry limits, idempotency controls, and human approval requirements for consequential workflow actions.",
+            "Built and tested controlled workflow prototypes connecting conversational intake to schema validation, calendar scheduling, email confirmation, and approval-based handoffs.",
+            "Integrated language models, n8n, webhooks, Vapi, ElevenLabs, Google Calendar, and email services in controlled test environments.",
+            "Designed deterministic validation, bounded retries, idempotency controls, and human approval for consequential actions.",
         ],
         "tools": "Python, n8n, TypeScript, REST APIs, webhooks, Vapi, ElevenLabs, Azure AI Foundry",
     },
     {
-        "role": "Software & Automation Developer",
-        "org": "Freelance / Self-Employed",
+        "role": "Independent Software & Automation Developer",
+        "org": "Self-Employed / Independent Projects",
         "date": "Jan 2021 - Present",
         "bullets": [
             "Built Python automation and backend utilities for data processing, Telegram bots, API integrations, and operational tooling.",
-            "Developed stream-oriented utilities for processing and splitting large text datasets without loading complete files into memory.",
-            "Created asynchronous Telegram integrations for wallet analysis, malware scanning, user tracking, pagination, caching, and admin reporting.",
-            "Built public Python tools for DNS intelligence, multi-source wallet analysis, and malware-report delivery.",
+            "Developed stream-oriented utilities for processing large text datasets without loading complete files into memory.",
+            "Created asynchronous integrations for wallet analysis, malware scanning, user tracking, pagination, caching, and admin reporting.",
         ],
         "tools": "Python, Async I/O, Telegram Bot API, aiohttp, SQL, Docker, REST APIs",
     },
+]
+
+TRAINING = [
     {
-        "role": "Threat Detection & Response Lab",
-        "org": "Capstone IT Staffing | Remote",
+        "name": "Threat Detection & Response Capstone | Capstone IT Staffing (Remote)",
         "date": "Jul 2025 - Aug 2025",
         "bullets": [
-            "Deployed Suricata IDS on Ubuntu, wrote custom Snort rules, and automated alert enrichment with Python and public OSINT sources.",
-            "Built a Python DNS intelligence CLI with asynchronous resolution, WHOIS lookups, trace output, and JSON export for investigations.",
+            "Deployed Suricata on Ubuntu, wrote custom Snort rules, and automated alert enrichment with Python and public OSINT sources.",
+            "Built a DNS intelligence CLI with asynchronous resolution, WHOIS lookups, trace output, and JSON export.",
         ],
-        "tools": "Python, Suricata, Snort, OSINT, DNS, Linux",
-    },
+    }
 ]
 
 PROJECTS = [
     {
-        "name": "Noughtline | Real-Time Multiplayer System",
-        "stack": "React, Express, Socket.IO, SQLite, Paystack",
+        "name": "Volyx Lens | Privacy-First Context-Aware AI Assistant",
+        "stack": "JavaScript, Electron, Swift, Azure AI Foundry, Multimodal APIs",
         "bullets": [
-            "Built signed guest sessions, server-authoritative moves, reconnect and forfeit handling, transactional match settlement, and an append-only currency ledger.",
-            "Added one-time crediting for verified Paystack references and automated API, economy, room-state, and two-client Socket.IO tests.",
-            "Live: https://noughtline.onrender.com | Source: https://github.com/dk3yyyy/Noughtline",
+            "Developed and substantially extended a macOS assistant that combines explicitly selected screen context, microphone input, and meeting audio with user-configured AI providers.",
+            "Implemented local OCR, bounded screenshot memory, context ranking, provider routing, and consent before larger image uploads.",
+            "Hardened Electron boundaries with sandboxing, context isolation, restricted IPC, automated tests, secret scanning, and release checks.",
+            "Source: https://github.com/dk3yyyy/volyx-lens",
         ],
     },
     {
@@ -88,16 +88,17 @@ PROJECTS = [
         "stack": "Python, XGBoost, scikit-learn, FastAPI, Streamlit, SQLAlchemy",
         "bullets": [
             "Built data scrapers, temporal feature engineering, XGBoost outcome and Poisson goal models, a FastAPI service, and a Streamlit dashboard.",
-            "Uses chronological train, calibration, and test partitions with probability calibration; no performance claim is published while evaluation work continues.",
-            "Source: https://github.com/dk3yyyy/football_predictor",
+            "Evaluated with rolling-origin testing across 1,140 Premier League matches: 53.77% outcome accuracy versus a 56.70% bookmaker-implied benchmark, showing signal but no practical betting advantage.",
+            "Archived evidence: https://github.com/dk3yyyy/football_predictor/tree/repair/football-predictor-hardening",
         ],
     },
     {
-        "name": "Local Review RAG | Local Retrieval Experiment",
-        "stack": "Python, Ollama, LangChain, Chroma, Llama 3.2",
+        "name": "Noughtline | Real-Time Multiplayer System",
+        "stack": "React, Express, Socket.IO, SQLite, Paystack",
         "bullets": [
-            "Embedded restaurant reviews locally, stored vectors in Chroma, retrieved the five closest records, and supplied that context to a local language model.",
-            "Source: https://github.com/dk3yyyy/local_AI_agent",
+            "Built signed guest sessions, server-authoritative moves, reconnect and forfeit handling, transactional match settlement, and an append-only currency ledger.",
+            "Added idempotent Paystack crediting plus automated API, economy, room-state, and two-client Socket.IO tests.",
+            "Live: https://noughtline.onrender.com | Source: https://github.com/dk3yyyy/Noughtline",
         ],
     },
     {
@@ -112,11 +113,10 @@ PROJECTS = [
 
 SKILLS = [
     "Languages: Python, JavaScript, TypeScript, SQL",
-    "AI / ML: XGBoost, scikit-learn, pandas, Ollama, LangChain, Chroma, retrieval workflows, structured outputs",
-    "Backend: FastAPI, Express, Socket.IO, SQLAlchemy, SQLite, PostgreSQL, REST APIs, webhooks",
-    "Automation: n8n, approval gates, retries, idempotency, Telegram integrations, Google Calendar and email workflows",
-    "Infrastructure: Docker, GitHub Actions, Linux, Microsoft Azure, Azure AI Foundry, GitHub Pages, Cloudflare Pages",
-    "Security: Suricata, Snort, VirusTotal API, OSINT, DNS analysis, credential handling",
+    "AI / ML: Azure AI Foundry, XGBoost, scikit-learn, pandas, Ollama, LangChain, Chroma, RAG, model evaluation",
+    "Backend & Automation: FastAPI, Express, Socket.IO, n8n, REST APIs, webhooks, SQLAlchemy, SQLite",
+    "Infrastructure: Docker, GitHub Actions, Linux, Microsoft Azure, Electron",
+    "Security: Suricata, Snort, VirusTotal API, OSINT, DNS analysis, secure credential management",
 ]
 
 CERTIFICATIONS = [
@@ -186,17 +186,18 @@ def add_docx_contact(doc: Document) -> None:
     first = doc.add_paragraph()
     first.alignment = WD_ALIGN_PARAGRAPH.CENTER
     first.paragraph_format.space_after = Pt(0)
+    first.add_run(f"{LOCATION} | ")
     add_hyperlink(first, EMAIL, f"mailto:{EMAIL}")
     first.add_run(f" | {PHONE}")
 
     second = doc.add_paragraph()
     second.alignment = WD_ALIGN_PARAGRAPH.CENTER
     second.paragraph_format.space_after = Pt(4)
-    add_hyperlink(second, "GitHub", GITHUB_URL)
+    add_hyperlink(second, "github.com/dk3yyyy", GITHUB_URL)
     second.add_run(" | ")
-    add_hyperlink(second, "LinkedIn", LINKEDIN_URL)
+    add_hyperlink(second, "linkedin.com/in/joshua-nwachinemere", LINKEDIN_URL)
     second.add_run(" | ")
-    add_hyperlink(second, "Portfolio", PORTFOLIO_URL)
+    add_hyperlink(second, "dk3yyyy.github.io/joshua-portfolio", PORTFOLIO_URL)
 
 
 def add_docx_heading(doc: Document, text: str) -> None:
@@ -210,11 +211,11 @@ def add_docx_heading(doc: Document, text: str) -> None:
 
 def add_docx_bullets(doc: Document, bullets: list[str]) -> None:
     for bullet in bullets:
-        p = doc.add_paragraph(style="List Bullet")
+        p = doc.add_paragraph()
         p.paragraph_format.left_indent = Inches(0.2)
         p.paragraph_format.first_line_indent = Inches(-0.12)
         p.paragraph_format.space_after = Pt(0)
-        add_text_with_links(p, bullet)
+        add_text_with_links(p, f"- {bullet}")
 
 
 def build_docx() -> None:
@@ -239,6 +240,9 @@ def build_docx() -> None:
     p = doc.add_paragraph(SUMMARY)
     p.paragraph_format.space_after = Pt(2)
 
+    add_docx_heading(doc, "CORE SKILLS")
+    add_docx_bullets(doc, SKILLS)
+
     add_docx_heading(doc, "PROFESSIONAL EXPERIENCE")
     for item in EXPERIENCE:
         p = doc.add_paragraph()
@@ -255,6 +259,15 @@ def build_docx() -> None:
         r.bold = True
         p.add_run(item["tools"])
 
+    add_docx_heading(doc, "TECHNICAL TRAINING")
+    for item in TRAINING:
+        p = doc.add_paragraph()
+        p.paragraph_format.space_after = Pt(0)
+        r = p.add_run(item["name"])
+        r.bold = True
+        p.add_run(f" | {item['date']}").italic = True
+        add_docx_bullets(doc, item["bullets"])
+
     doc.add_page_break()
     add_docx_heading(doc, "SELECTED PROJECTS")
     for project in PROJECTS:
@@ -267,8 +280,6 @@ def build_docx() -> None:
         p.runs[0].italic = True
         add_docx_bullets(doc, project["bullets"])
 
-    add_docx_heading(doc, "CORE SKILLS")
-    add_docx_bullets(doc, SKILLS)
     add_docx_heading(doc, "CERTIFICATIONS")
     add_docx_bullets(doc, CERTIFICATIONS)
     add_docx_heading(doc, "EDUCATION")
@@ -285,36 +296,34 @@ def pdf_styles():
         "name": ParagraphStyle("CVName", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=16, leading=18, alignment=TA_CENTER, spaceAfter=2),
         "headline": ParagraphStyle("CVHeadline", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=10.5, leading=12, alignment=TA_CENTER, spaceAfter=2),
         "contact": ParagraphStyle("CVContact", parent=styles["Normal"], fontName="Helvetica", fontSize=8.1, leading=10, alignment=TA_CENTER, spaceAfter=5),
-        "section": ParagraphStyle("CVSection", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=11.5, leading=14, textColor=colors.HexColor("#111111"), spaceBefore=8, spaceAfter=4, borderWidth=0, borderPadding=0),
-        "role": ParagraphStyle("CVRole", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=10.5, leading=13, spaceBefore=4, spaceAfter=1),
-        "org": ParagraphStyle("CVOrg", parent=styles["Normal"], fontName="Helvetica-Oblique", fontSize=9.8, leading=12, spaceAfter=1),
-        "body": ParagraphStyle("CVBody", parent=styles["Normal"], fontName="Helvetica", fontSize=10.1, leading=12.7, spaceAfter=2),
-        "tools": ParagraphStyle("CVTools", parent=styles["Normal"], fontName="Helvetica", fontSize=9.7, leading=12, spaceAfter=4),
+        "section": ParagraphStyle("CVSection", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=12, leading=15, textColor=colors.HexColor("#111111"), spaceBefore=10, spaceAfter=5, borderWidth=0, borderPadding=0),
+        "role": ParagraphStyle("CVRole", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=10.8, leading=13.5, spaceBefore=5, spaceAfter=1.5),
+        "org": ParagraphStyle("CVOrg", parent=styles["Normal"], fontName="Helvetica-Oblique", fontSize=10, leading=12.5, spaceAfter=1.5),
+        "body": ParagraphStyle("CVBody", parent=styles["Normal"], fontName="Helvetica", fontSize=10.7, leading=13.7, spaceAfter=2.5),
+        "tools": ParagraphStyle("CVTools", parent=styles["Normal"], fontName="Helvetica", fontSize=9.9, leading=12.5, spaceAfter=5),
     }
 
 
-def bullet_list(lines: list[str], style: ParagraphStyle) -> ListFlowable:
-    return ListFlowable(
+def bullet_list(lines: list[str], style: ParagraphStyle) -> KeepTogether:
+    bullet_style = ParagraphStyle(
+        f"{style.name}Bullet",
+        parent=style,
+        leftIndent=10,
+        firstLineIndent=-7,
+        spaceAfter=1,
+    )
+    return KeepTogether(
         [
-            ListItem(
-                Paragraph(
-                    URL_PATTERN.sub(
-                        lambda match: f'<link href="{match.group(0)}" color="#1155CC">{match.group(0)}</link>',
-                        line,
-                    ),
-                    style,
+            Paragraph(
+                "- "
+                + URL_PATTERN.sub(
+                    lambda match: f'<link href="{match.group(0)}" color="#1155CC">{match.group(0)}</link>',
+                    line,
                 ),
-                leftIndent=10,
+                bullet_style,
             )
             for line in lines
-        ],
-        bulletType="bullet",
-        bulletFontName="Helvetica",
-        bulletFontSize=6,
-        leftIndent=14,
-        bulletOffsetY=1,
-        spaceBefore=0,
-        spaceAfter=1,
+        ]
     )
 
 
@@ -331,10 +340,10 @@ def draw_later_page_header(canvas, document) -> None:
 def build_pdf() -> None:
     styles = pdf_styles()
     contact_markup = (
-        f'<link href="mailto:{EMAIL}" color="#1155CC">{EMAIL}</link> | {PHONE}<br/>'
-        f'<link href="{GITHUB_URL}" color="#1155CC">GitHub</link> | '
-        f'<link href="{LINKEDIN_URL}" color="#1155CC">LinkedIn</link> | '
-        f'<link href="{PORTFOLIO_URL}" color="#1155CC">Portfolio</link>'
+        f'{LOCATION} | <link href="mailto:{EMAIL}" color="#1155CC">{EMAIL}</link> | {PHONE}<br/>'
+        f'<link href="{GITHUB_URL}" color="#1155CC">github.com/dk3yyyy</link> | '
+        f'<link href="{LINKEDIN_URL}" color="#1155CC">linkedin.com/in/joshua-nwachinemere</link> | '
+        f'<link href="{PORTFOLIO_URL}" color="#1155CC">dk3yyyy.github.io/joshua-portfolio</link>'
     )
     doc = SimpleDocTemplate(
         str(PDF_PATH),
@@ -352,6 +361,8 @@ def build_pdf() -> None:
         Paragraph(contact_markup, styles["contact"]),
         Paragraph("PROFILE", styles["section"]),
         Paragraph(SUMMARY, styles["body"]),
+        Paragraph("CORE SKILLS", styles["section"]),
+        bullet_list(SKILLS, styles["body"]),
         Paragraph("PROFESSIONAL EXPERIENCE", styles["section"]),
     ]
     for item in EXPERIENCE:
@@ -360,6 +371,11 @@ def build_pdf() -> None:
         story.append(bullet_list(item["bullets"], styles["body"]))
         story.append(Paragraph(f"<b>Key tools:</b> {item['tools']}", styles["tools"]))
 
+    story.append(Paragraph("TECHNICAL TRAINING", styles["section"]))
+    for item in TRAINING:
+        story.append(Paragraph(f"{item['name']} | {item['date']}", styles["role"]))
+        story.append(bullet_list(item["bullets"], styles["body"]))
+
     story.append(PageBreak())
     story.append(Paragraph("SELECTED PROJECTS", styles["section"]))
     for project in PROJECTS:
@@ -367,8 +383,6 @@ def build_pdf() -> None:
         story.append(Paragraph(project["stack"], styles["org"]))
         story.append(bullet_list(project["bullets"], styles["body"]))
 
-    story.append(Paragraph("CORE SKILLS", styles["section"]))
-    story.append(bullet_list(SKILLS, styles["body"]))
     story.append(Paragraph("CERTIFICATIONS", styles["section"]))
     story.append(bullet_list(CERTIFICATIONS, styles["body"]))
     story.append(Paragraph("EDUCATION", styles["section"]))
